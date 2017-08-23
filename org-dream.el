@@ -18,21 +18,24 @@
   "** Dream summary")
 
 ;; Private
+(defun org-dream--try-setup ()
+  (unless (f-dir-p org-dream-location)
+    (if (and org-dream-location
+             (stringp org-dream-location)
+             (f-absolute-p org-dream-location))
+        (f-mkdir org-dream-location)
+      (error "`org-dream-location' must be correct absolute path"))))
+
 (defun org-dream--generate-new-filename (dream-dir)
   "Generates name for new dream file."
   (let ((--files (directory-files dream-dir nil "dream-[0-9]+.org")))
     (format "dream-%d.org" (1+ (length --files)))))
 
 ;; Public
-(defun org-dream-setup ()
-  "Setup `org-dream' facilities."
-  (when (and org-dream-location
-             (stringp org-dream-location))
-    (unless (f-dir-p org-dream-location)
-      (f-mkdir org-dream-location))))
-
 (defun org-dream-new-dream ()
   "Create new dream entry."
+  (org-dream--try-setup)
+
   (let* ((--dream-dir (f-join org-dream-location
                               (format-time-string org-dream-directory-format)))
          (--assets-dir (f-join --dream-dir
