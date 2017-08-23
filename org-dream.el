@@ -34,6 +34,7 @@
 ;; Public
 (defun org-dream-new-dream ()
   "Create new dream entry."
+  (interactive)
   (org-dream--try-setup)
 
   (let* ((--dream-dir (f-join org-dream-location
