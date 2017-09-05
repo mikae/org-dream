@@ -1,6 +1,6 @@
 # Makefile for org-dream
 
-VERSION="$(shell sed -nre '/^;; Version:/ { s/^;; Version:[ \t]+//; p }' org-dream.el)"
+VERSION="$(shell sed -nre '/^;;; Version:/ { s/^;;; Version:[ \t]+//; p }' org-dream.el)"
 DISTFILE = org-dream-$(VERSION).zip
 
 # EMACS value may be overridden

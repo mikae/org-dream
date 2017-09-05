@@ -1,36 +1,56 @@
 ;;; package --- Summary
 ;;; Commentary:
-;; Version:     20170822
+;;; Version:     20170904
 ;;; Code:
-(defvar org-dream-home nil
-  "home where your dreams will be stored in.")
-
-(defvar org-dream-locations-dir nil
-  "home where some locations in your dreams will be stored in.")
-
-(defvar org-dream-diary-dir nil
-  "home where some locations in your dreams will be stored in.")
 
 (defconst org-dream-directory-format "%Y-%m-%d"
   "Format of directories in `org-dream-home'.")
 
-(define-skeleton org-dream-file-initial-content
+(defvar org-dream-home nil
+  "Home where your dreams will be located in.")
+
+(defvar org-dream-locations-dir nil
+  "Directory where your dreams' locations will be located in.")
+
+(defvar org-dream-diary-dir nil
+  "Directory where your dreams will be stored in.")
+
+(defvar org-dream-thoughts-dir nil
+  "Directory where your dreams' thoughts will be located in.")
+
+(defvar org-dream-parts-dir nil
+  "Directory where your dreams' parts will be located in.")
+
+(define-skeleton org-dream-initial-content
   "Initial content of dream files"
-  ""
-  "* Dream"
-  ""
-  "** Dream name"
-  ""
-  "** Dream summary")
+  "* Dream\n"
+  "\n"
+  "** Dream name\n"
+  "\n"
+  "** Dream summary\n"
+  "\n"
+  "** Thoughts about this dream\n"
+  "\n")
+
+(define-skeleton org-dream-part-initial-content
+  "Initial content of dream files"
+  "* Dream part\n"
+  "\n"
+  "** Dream part summary\n"
+  "\n"
+  "** Thoughts about this dream part\n"
+  "\n")
 
 (define-skeleton org-dream-location-initial-content
   "Initial content of dream files"
-  ""
-  "* Location"
-  ""
-  "** Location name"
-  ""
-  "** Location summary")
+  "* Dream location\n"
+  "\n"
+  "** Location name\n"
+  "\n"
+  "** Location summary\n"
+  "\n"
+  "** Valuable dreams\n"
+  "\n")
 
 ;; Private
 (defun org-dream--try-setup ()
@@ -44,7 +64,9 @@
                                      (error "`%s' must be correct absolute path" ,loc))))))
     (--create-dir org-dream-home)
     (--create-dir org-dream-locations-dir)
-    (--create-dir org-dream-diary-dir)))
+    (--create-dir org-dream-diary-dir)
+    (--create-dir org-dream-parts-dir)
+    (--create-dir org-dream-thoughts-dir)))
 
 (defun org-dream--generate-new-filename (dream-dir)
   "Generates name for new dream file."
@@ -58,7 +80,11 @@
   (setq org-dream-locations-dir (f-join home-loc
                                         "locations"))
   (setq org-dream-diary-dir     (f-join home-loc
-                                        "diary")))
+                                        "diary"))
+  (setq org-dream-parts-dir     (f-join home-loc
+                                        "parts"))
+  (setq org-dream-thoughts-dir  (f-join home-loc
+                                        "thoughts")))
 
 (defun org-dream-new-dream ()
   "Create new dream entry."
@@ -76,7 +102,7 @@
 
     (find-file (f-join --dream-dir
                        (org-dream--generate-new-filename --dream-dir)))
-    (org-dream-file-initial-content)))
+    (org-dream-initial-content)))
 
 (defun org-dream-new-location (location-name)
   (interactive)

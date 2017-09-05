@@ -3,10 +3,19 @@
 (require 'f)
 
 (defconst --org-dream-home          "/tmp/--org-dream-home")
+
 (defconst --org-dream-locations-dir  (f-join --org-dream-home
                                              "locations"))
+
 (defconst --org-dream-diary-dir  (f-join --org-dream-home
                                          "diary"))
+
+(defconst --org-dream-parts-dir  (f-join --org-dream-home
+                                         "parts"))
+
+(defconst --org-dream-thoughts-dir  (f-join --org-dream-home
+                                            "thoughts"))
+
 (defconst --test-file-home  (f-join "/tmp/--org-dream-home"
                                     "test.org"))
 
@@ -23,18 +32,28 @@
   (org-dream-set-home --org-dream-home))
 
 (describe "set-home"
+          (before-each
+           (--before))
+
           (it "sets home directory for org-dream"
-              (--before)
               (org-dream-set-home --org-dream-home)
               (expect org-dream-home :to-equal --org-dream-home))
-          (it "sets dream location's directory for org-dream"
-              (--before)
+
+          (it "sets dream locations directory for org-dream"
               (org-dream-set-home --org-dream-home)
               (expect org-dream-locations-dir :to-equal --org-dream-locations-dir))
-          (it "sets dream location's directory for org-dream"
-              (--before)
+
+          (it "sets dream dreams directory for org-dream"
               (org-dream-set-home --org-dream-home)
-              (expect org-dream-diary-dir :to-equal --org-dream-diary-dir)))
+              (expect org-dream-diary-dir :to-equal --org-dream-diary-dir))
+
+          (it "sets dream thoughts directory for org-dream"
+              (org-dream-set-home --org-dream-home)
+              (expect org-dream-thoughts-dir :to-equal --org-dream-thoughts-dir))
+
+          (it "sets dream parts directory for org-dream"
+              (org-dream-set-home --org-dream-home)
+              (expect org-dream-parts-dir :to-equal --org-dream-parts-dir)))
 
 (describe "new-dream"
           (it "creates dream directory for a dream"
@@ -123,3 +142,6 @@
               (expect (f-dir-p --org-dream-home) :to-be t)
               (expect (f-dir-p --org-dream-locations-dir) :to-be t)
               (expect (f-dir-p --org-dream-diary-dir) :to-be t)))
+
+(describe "New thought"
+          (it ""))
