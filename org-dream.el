@@ -23,6 +23,7 @@
 
 (define-skeleton org-dream-initial-content
   "Initial content of dream files"
+  ""
   "* Dream\n"
   "\n"
   "** Dream name\n"
@@ -34,6 +35,7 @@
 
 (define-skeleton org-dream-part-initial-content
   "Initial content of dream files"
+  ""
   "* Dream part\n"
   "\n"
   "** Plot\n"
@@ -43,6 +45,7 @@
 
 (define-skeleton org-dream-location-initial-content
   "Initial content of dream files"
+  ""
   "* Dream location\n"
   "\n"
   "** Location name\n"
