@@ -27,18 +27,18 @@
   "\n"
   "** Dream name\n"
   "\n"
-  "** Dream summary\n"
+  "** Dream plot\n"
   "\n"
-  "** Thoughts about this dream\n"
+  "** Dream situations\n"
   "\n")
 
 (define-skeleton org-dream-part-initial-content
   "Initial content of dream files"
   "* Dream part\n"
   "\n"
-  "** Dream part summary\n"
+  "** Plot\n"
   "\n"
-  "** Thoughts about this dream part\n"
+  "** Situations\n"
   "\n")
 
 (define-skeleton org-dream-location-initial-content
@@ -61,7 +61,7 @@
                                             (stringp --location)
                                             (f-absolute-p --location))
                                        (f-mkdir --location)
-                                     (error "`%s' must be correct absolute path" ,loc))))))
+                                     (error "org-dream--dry-setup: not a correct directory: %s" ,loc))))))
     (--create-dir org-dream-home)
     (--create-dir org-dream-locations-dir)
     (--create-dir org-dream-diary-dir)
